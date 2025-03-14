@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>捕捞鱼的估算数量</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #f0f8ff;
+        }
+        h1 {
+            color: #007BFF;
+        }
+        input, button {
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px;
+            border-radius: 5px;
+            border: 2px solid #007BFF;
+            transition: all 0.3s ease;
+        }
+        input:focus, button:hover {
+            background-color: #007BFF;
+            color: white;
+            transform: scale(1.05);
+        }
+        #result {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+            color: green;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+    </style>
+    <script>
+        function estimateFish() {
+            // 获取用户输入的值
+            let x = parseInt(document.getElementById("x").value);
+            let y = parseInt(document.getElementById("y").value);
+
+            // 检查输入是否有效
+            if (isNaN(x) || isNaN(y)) {
+                alert("请输入有效的数字！");
+                return;
+            }
+
+            // 检查x和y的关系
+            if (x < y) {
+                alert("错误：第一次捕捞的鱼数量x必须大于或等于第二次捕捞带记号的鱼数量y！");
+                return;
+            }
+
+            // 检查y是否为0
+            if (y === 0) {
+                alert("错误：y不能为0，因为没有带有记号的鱼被捕捞到。");
+                return;
+            }
+
+            // 计算估算的鱼的数量
+            let n = (x * x) / y;
+            n = Math.round(n); // 四舍五入到最近的整数
+
+            // 显示估算数量
+            let resultElement = document.getElementById("result");
+            resultElement.innerText = "池塘中鱼的估算数量为：" + n;
+
+            // 使结果逐渐出现
+            resultElement.style.opacity = 1;
+        }
+    </script>
+</head>
+<body>
+    <h1>捕捞鱼的估算数量</h1>
+    <p>请输入第一次捕捞的数量x（整数，x >= y）：</p>
+    <input type="number" id="x" step="1">
+    <p>请输入第二次捕捞中带有记号的数量y（整数，x >= y）：</p>
+    <input type="number" id="y" step="1">
+    <br><br>
+    <button onclick="estimateFish()">估算鱼的数量</button>
+    <p id="result"></p>
+</body>
+</html>
